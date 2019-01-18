@@ -72,6 +72,15 @@ jobs:
         paths:
         - ~/.m2
 
+  RELEASE:
+    machine: true
+    steps:
+      - checkout
+      - run:
+          command: |
+            bash ./scripts/prepare-environment.sh
+            bash ./scripts/release.sh
+
 workflows:
   version: 2
   all:
@@ -86,3 +95,7 @@ workflows:
         filters:
           branches:
             only: master
+    - RELEASE
+#        filters:
+#          branches:
+#            only: release-project
