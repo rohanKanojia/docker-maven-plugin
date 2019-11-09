@@ -13,6 +13,7 @@ import java.util.Enumeration;
 import io.fabric8.maven.docker.access.DockerAccessException;
 import io.fabric8.maven.docker.config.BuildImageConfiguration;
 import io.fabric8.maven.docker.config.ImageConfiguration;
+import io.fabric8.maven.docker.config.ImagePullPolicy;
 import io.fabric8.maven.docker.service.BuildService;
 import io.fabric8.maven.docker.service.ImagePullManager;
 import io.fabric8.maven.docker.service.ServiceHub;
@@ -83,8 +84,18 @@ public class BuildMojo extends AbstractBuildSupportMojo {
     protected Date getReferenceDate() {
         return new Date();
     }
+
     private String determinePullPolicy(BuildImageConfiguration buildConfig) {
-        return buildConfig != null && buildConfig.getImagePullPolicy() != null ? buildConfig.getImagePullPolicy() : imagePullPolicy;
+        if (buildConfig != null) {
+            if (buildConfig.getImagePullPolicy() != null) {
+                return buildConfig.getImagePullPolicy();
+            } else if (buildConfig.getAutoPull() != null) {
+                return buildConfig.getAutoPull().equalsIgnoreCase("TRUE") ?
+                        ImagePullPolicy.IfNotPresent.name() :
+                        ImagePullPolicy.Never.name();
+            }
+        }
+        return imagePullPolicy;
     }
 
     /**

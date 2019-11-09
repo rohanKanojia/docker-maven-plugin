@@ -24,6 +24,7 @@ import java.util.Map;
 import io.fabric8.maven.docker.util.JsonFactory;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 /**
  * @author roland
@@ -59,6 +60,15 @@ public class BuildConfigTest {
         assertEquals("blub", opts.getOptions().get("dockerfile"));
         opts = new BuildOptions().dockerfile(null);
         assertEquals(0, opts.getOptions().size());
+    }
+
+    @Test
+    public void autoPull() {
+        BuildOptions opts = new BuildOptions().autoPull("true");
+        assertEquals("true", opts.getOptions().get("pull"));
+
+        opts = new BuildOptions().autoPull(null);
+        assertFalse(opts.getOptions().containsKey("pull"));
     }
 
     @Test

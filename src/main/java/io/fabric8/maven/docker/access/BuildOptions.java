@@ -42,6 +42,22 @@ public class BuildOptions {
         return this;
     }
 
+    public BuildOptions autoPull(String autoPull) {
+        if (autoPull != null) {
+            switch (autoPull.toLowerCase()) {
+                case "always":
+                case "true" :
+                case "ifnotpresent":
+                    options.put("pull", Boolean.TRUE.toString());
+                    break;
+                case "false":
+                case "never":
+                    options.put("pull", Boolean.FALSE.toString());
+            }
+        }
+        return this;
+    }
+
     public BuildOptions dockerfile(String name) {
         if (name != null) {
             options.put("dockerfile", name);

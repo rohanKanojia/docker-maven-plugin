@@ -137,6 +137,7 @@ public class BuildService {
         // auto is now supported by docker, consider switching?
         BuildOptions opts =
                 new BuildOptions(buildConfig.getBuildOptions())
+                        .autoPull(buildConfig.getAutoPull())
                         .dockerfile(getDockerfileName(buildConfig))
                         .forceRemove(cleanupMode.isRemove())
                         .noCache(noCache)
