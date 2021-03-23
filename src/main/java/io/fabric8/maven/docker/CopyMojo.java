@@ -89,10 +89,11 @@ public class CopyMojo extends AbstractDockerMojo {
         List<ImageConfiguration> imageConfigurations = getResolvedImages();
         for (ImageConfiguration imageConfiguration : imageConfigurations) {
             CopyConfiguration copyConfiguration = imageConfiguration.getCopyConfiguration();
+            String imageName = imageConfiguration.getName();
             if (isEmpty(copyConfiguration)) {
+                log.debug("Copy configuration is not defined for %s image, skipping coping", imageName);
                 continue;
             }
-            String imageName = imageConfiguration.getName();
             try (ContainerRemover containerRemover = new ContainerRemover(log, runService, removeVolumes)) {
                 String containerId = createContainer(runService, imageConfiguration, gavLabel);
                 containerRemover.setContainerId(containerId);
@@ -108,11 +109,12 @@ public class CopyMojo extends AbstractDockerMojo {
         for (ContainerDescriptor containerDescriptor : containerDescriptors) {
             ImageConfiguration imageConfiguration = containerDescriptor.getImageConfig();
             CopyConfiguration copyConfiguration = imageConfiguration.getCopyConfiguration();
+            String imageName = imageConfiguration.getName();
             if (isEmpty(copyConfiguration)) {
+                log.debug("Copy configuration is not defined for %s image, skipping coping", imageName);
                 continue;
             }
             String containerId = containerDescriptor.getContainerId();
-            String imageName = imageConfiguration.getName();
             log.debug("Found %s container of %s image started by start mojo", containerId, imageName);
             copy(dockerAccess, archiveService, containerId, imageName, copyConfiguration);
         }
@@ -123,10 +125,11 @@ public class CopyMojo extends AbstractDockerMojo {
         List<ImageConfiguration> imageConfigurations = getResolvedImages();
         for (ImageConfiguration imageConfiguration : imageConfigurations) {
             CopyConfiguration copyConfiguration = imageConfiguration.getCopyConfiguration();
+            String imageName = imageConfiguration.getName();
             if (isEmpty(copyConfiguration)) {
+                log.debug("Copy configuration is not defined for %s image, skipping coping", imageName);
                 continue;
             }
-            String imageName = imageConfiguration.getName();
             Collection<Container> containers = getContainersForImage(queryService, imageConfiguration);
             if (containers.isEmpty()) {
                 log.warn("Found no containers of %s image", imageName);
