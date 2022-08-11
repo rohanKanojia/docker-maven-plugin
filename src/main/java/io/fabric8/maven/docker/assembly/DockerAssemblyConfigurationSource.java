@@ -177,6 +177,25 @@ public class DockerAssemblyConfigurationSource implements AssemblerConfiguration
         return mainProjectInterpolator;
     }
 
+    @Override
+    public Integer getOverrideUid() {
+    }
+
+    @Override
+    public String getOverrideUserName() {
+        return null;
+    }
+
+    @Override
+    public Integer getOverrideGid() {
+        return null;
+    }
+
+    @Override
+    public String getOverrideGroupName() {
+        return null;
+    }
+
     // X
     @Override
     public MavenProject getProject() {
@@ -205,6 +224,11 @@ public class DockerAssemblyConfigurationSource implements AssemblerConfiguration
     @Override
     public List<String> getFilters() {
         return Collections.emptyList();
+    }
+
+    @Override
+    public Properties getAdditionalProperties() {
+        return null;
     }
 
     @Override
