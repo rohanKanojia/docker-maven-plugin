@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -300,7 +301,7 @@ public class DockerAssemblyManager {
         synchronized (trackArchivers) {
             trackArchivers.init(log, assemblyName);
             assembly.setId("tracker");
-            File trackArchiverDestFile = assemblyArchiver.createArchive(assembly, assemblyName, "track", source, false, null);
+            File trackArchiverDestFile = assemblyArchiver.createArchive(assembly, assemblyName, "track", source, false, null, new Date());
             trackArchivers.get(assemblyName).setDestFile(trackArchiverDestFile);
             return trackArchivers.getAssemblyFiles(mojoParams.getSession(), assemblyName);
         }
@@ -543,7 +544,7 @@ public class DockerAssemblyManager {
         try {
             originalArtifactFile = ensureThatArtifactFileIsSet(params.getProject());
             assembly.setId("docker");
-            assemblyArchiver.createArchive(assembly, assemblyConfig.getName(), buildMode.getExtension(), source, false, null);
+            assemblyArchiver.createArchive(assembly, assemblyConfig.getName(), buildMode.getExtension(), source, false, null, new Date());
         } catch (ArchiveCreationException | AssemblyFormattingException e) {
             String error = "Failed to create assembly for docker image " +
                            " (with mode '" + buildMode + "'): " + e.getMessage() + ".";

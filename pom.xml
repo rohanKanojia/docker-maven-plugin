@@ -74,6 +74,8 @@
     <jib-core.version>0.18.0</jib-core.version>
     <jmockit.version>1.43</jmockit.version>
     <junit.jupiter.version>5.8.2</junit.jupiter.version>
+    <maven-assembly-plugin.version>3.4.2</maven-assembly-plugin.version>
+    <maven-shared-utils.version>3.3.4</maven-shared-utils.version>
     <maven.version>3.3.9</maven.version>
     <mockito.version>4.5.1</mockito.version>
     <project.build.outputTimestamp>2022-07-31T07:33:06Z</project.build.outputTimestamp>
@@ -177,7 +179,7 @@
     <dependency>
       <groupId>org.apache.maven.plugins</groupId>
       <artifactId>maven-assembly-plugin</artifactId>
-      <version>3.1.0</version>
+      <version>${maven-assembly-plugin.version}</version>
       <exclusions>
         <exclusion>
           <groupId>org.apache.maven</groupId>
@@ -189,6 +191,12 @@
           <artifactId>google-collections</artifactId>
         </exclusion>
       </exclusions>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.maven.shared</groupId>
+      <artifactId>maven-shared-utils</artifactId>
+      <version>${maven-shared-utils.version}</version>
     </dependency>
 
     <dependency>
