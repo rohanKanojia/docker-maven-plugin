@@ -539,7 +539,7 @@ class RegistryServiceTest {
                     .authConfig(authConfig)
                     .registry(registry)
                     .build();
-            registryService.pushImages(projectPaths, Collections.singleton(imageConfiguration), 1, registryConfig, false);
+            registryService.pushImages(projectPaths, Collections.singleton(imageConfiguration), 1, registryConfig, false, null);
         } catch (Exception e) {
             this.actualException = e;
         }
